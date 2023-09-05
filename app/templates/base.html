@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f7f7f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #0096c7;
+        color: #fff;
+        text-align: center;
+    }
+
+    footer {
+        background-color: #ccc;
+        color: #333;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav {
+        background-color: #0096c7;
+        color: #fff;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 15px;
+        transition: all 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        background-color: #32bbe8;
+    }
+
+    nav ul li.active a {
+        background-color: #666;
+    }
+
+    nav ul li.active a:hover {
+        background-color: #999;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        {% if not user.is_authenticated %} 
+          <li><a href="{% url 'registro' %}">Cadastrar novo usuário</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+        {% elif user.is_superuser %}
+          <li>Olá, {{ user.username }}</li>
+          <li><a href="{% url 'carros_lista' %}">Carros</a></li>
+          <li><a href="{% url 'carro_novo' %}">Cadastrar novo Carro</a></li>
+          <li><a href="{% url 'nova_marca' %}">Cadastrar nova Marca</a></li>
+          <li><a href="{% url 'registro' %}">Cadastrar novo usuário</a></li>
+          <li><a href="{% url 'logout' %}">Encerrar sessão</a></li>
+        {% else %}
+          <li><a href="{% url 'carros_lista' %}">Carros</a></li>
+          <li><a href="{% url 'registro' %}">Cadastrar novo usuário</a></li>
+          <li><a href="{% url 'logout' %}">Encerrar sessão</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2023 PycodeBR Multimarcas</p>
+  </footer>
+</body>
+</html>
