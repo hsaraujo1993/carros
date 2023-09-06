@@ -93,12 +93,13 @@
         <p><strong>Ficha Tecnica:</strong> {{ object.bio }} </p>
       {% endif %}
   </div>
-
-  <div class="buttons-container">
-    <a href="{% url 'carro_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
-  </div>
-  <div class="buttons-container">
-    <a href="{% url 'carro_delete' pk=object.pk %}" class="btn btn-primary">Deletar</a>
-  </div>
+  {% if user.is_staff %}
+    <div class="buttons-container">
+      <a href="{% url 'carro_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
+    </div>
+    <div class="buttons-container">
+      <a href="{% url 'carro_delete' pk=object.pk %}" class="btn btn-primary">Deletar</a>
+    </div>
+  {% endif %}
 
 {% endblock %}
